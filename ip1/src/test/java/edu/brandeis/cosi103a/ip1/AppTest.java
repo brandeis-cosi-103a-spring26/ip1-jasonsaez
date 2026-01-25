@@ -91,7 +91,7 @@ public class AppTest {
     
     @Test
     public void testGameCreation() {
-        Game game = new Game(new java.util.Scanner(System.in));
+        Game game = new Game();
         assertNotNull(game.getPlayers());
         assertNotNull(game.getSupply());
         assertTrue(game.getSupply().size() > 0);
@@ -99,7 +99,7 @@ public class AppTest {
     
     @Test
     public void testGameAddPlayer() {
-        Game game = new Game(new java.util.Scanner(System.in));
+        Game game = new Game();
         Player player = new Player("Test Player");
         game.addPlayer(player);
         assertEquals(1, game.getPlayers().size());

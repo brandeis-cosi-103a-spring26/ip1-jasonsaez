@@ -1,20 +1,21 @@
 package edu.brandeis.cosi103a.ip1;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Random;
 
 public class Game {
     private List<Player> players;
     private List<Card> supply;
     private int turnCount;
-    private Scanner scanner;
+    private Random random;
 
-    public Game(Scanner scanner) {
+    public Game() {
         this.players = new ArrayList<>();
         this.supply = new ArrayList<>();
         this.turnCount = 0;
-        this.scanner = scanner;
+        this.random = new Random();
         initializeSupply();
     }
 
@@ -39,6 +40,10 @@ public class Game {
     public void playGame(int maxTurns) {
         System.out.println("Welcome to Automation: The Game!");
         System.out.println("Players: " + players.size());
+        
+        // Randomly choose starting player
+        Collections.shuffle(players, random);
+        System.out.println("Starting player: " + players.get(0).getName());
         
         for (turnCount = 1; turnCount <= maxTurns; turnCount++) {
             System.out.println("\n=== Turn " + turnCount + " ===");
@@ -66,7 +71,7 @@ public class Game {
             System.out.println("  " + i + ": " + player.getHand().get(i));
         }
         
-        // Buy a card
+        // Buy a card (automated)
         buyPhase(player);
         
         // Cleanup
@@ -81,20 +86,21 @@ public class Game {
             System.out.println("  " + i + ": " + card);
         }
         
-        System.out.print("Enter card number to buy (or -1 to skip): ");
-        try {
-            int choice = Integer.parseInt(scanner.nextLine().trim());
-            if (choice >= 0 && choice < supply.size()) {
-                Card cardToBuy = supply.get(choice);
-                if (player.getMoney() >= cardToBuy.getCost()) {
-                    player.buyCard(cardToBuy);
-                    System.out.println("Bought: " + cardToBuy.getName());
-                } else {
-                    System.out.println("Not enough cryptocoins!");
+        // Automated buying strategy: buy the most expensive card the player can afford
+        Card cardToBuy = null;
+        for (Card card : supply) {
+            if (player.getMoney() >= card.getCost()) {
+                if (cardToBuy == null || card.getCost() > cardToBuy.getCost()) {
+                    cardToBuy = card;
                 }
             }
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid input, skipping buy phase.");
+        }
+        
+        if (cardToBuy != null) {
+            player.buyCard(cardToBuy);
+            System.out.println("Bought: " + cardToBuy.getName());
+        } else {
+            System.out.println("Cannot afford any cards, skipping buy.");
         }
     }
 
