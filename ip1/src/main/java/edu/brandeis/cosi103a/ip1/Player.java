@@ -21,12 +21,12 @@ public class Player {
     }
 
     public void initializeDeck() {
-        // Start with basic cards: 7 copper (1 money) and 3 estates (1 victory point)
+        // Start with basic cards: 7 Bitcoin (1 cryptocoin) and 3 Method (1 automation point)
         for (int i = 0; i < 7; i++) {
-            deck.addCard(new Card("Copper", CardType.MONEY, 0, 1));
+            deck.addCard(new Card("Bitcoin", CardType.CRYPTOCURRENCY, 0, 1));
         }
         for (int i = 0; i < 3; i++) {
-            deck.addCard(new Card("Estate", CardType.VICTORY, 2, 1));
+            deck.addCard(new Card("Method", CardType.AUTOMATION, 2, 1));
         }
         deck.shuffle();
     }
@@ -64,7 +64,7 @@ public class Player {
     public void playMoneyCards() {
         money = 0;
         for (Card card : hand) {
-            if (card.getType() == CardType.MONEY) {
+            if (card.getType() == CardType.CRYPTOCURRENCY) {
                 money += card.getValue();
             }
         }
@@ -80,11 +80,11 @@ public class Player {
     public int calculateScore() {
         int score = 0;
         
-        // Count victory points from deck (without removing cards)
+        // Count automation points from deck (without removing cards)
         List<Card> deckCards = new ArrayList<>();
         while (!deck.isEmpty()) {
             Card card = deck.drawCard();
-            if (card.getType() == CardType.VICTORY) {
+            if (card.getType() == CardType.AUTOMATION) {
                 score += card.getValue();
             }
             deckCards.add(card);
@@ -95,11 +95,11 @@ public class Player {
             deck.addCard(card);
         }
         
-        // Count victory points from discard pile (without removing cards)
+        // Count automation points from discard pile (without removing cards)
         List<Card> discardCards = new ArrayList<>();
         while (!discardPile.isEmpty()) {
             Card card = discardPile.drawCard();
-            if (card.getType() == CardType.VICTORY) {
+            if (card.getType() == CardType.AUTOMATION) {
                 score += card.getValue();
             }
             discardCards.add(card);
@@ -110,9 +110,9 @@ public class Player {
             discardPile.addCard(card);
         }
         
-        // Count victory points from hand (without modifying it)
+        // Count automation points from hand (without modifying it)
         for (Card card : hand) {
-            if (card.getType() == CardType.VICTORY) {
+            if (card.getType() == CardType.AUTOMATION) {
                 score += card.getValue();
             }
         }

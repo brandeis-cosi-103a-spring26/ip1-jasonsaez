@@ -19,19 +19,15 @@ public class Game {
     }
 
     private void initializeSupply() {
-        // Add money cards to supply
-        supply.add(new Card("Copper", CardType.MONEY, 0, 1));
-        supply.add(new Card("Silver", CardType.MONEY, 3, 2));
-        supply.add(new Card("Gold", CardType.MONEY, 6, 3));
+        // Add cryptocurrency cards to supply
+        supply.add(new Card("Bitcoin", CardType.CRYPTOCURRENCY, 0, 1));
+        supply.add(new Card("Ethereum", CardType.CRYPTOCURRENCY, 3, 2));
+        supply.add(new Card("Dogecoin", CardType.CRYPTOCURRENCY, 6, 3));
         
-        // Add victory cards to supply
-        supply.add(new Card("Estate", CardType.VICTORY, 2, 1));
-        supply.add(new Card("Duchy", CardType.VICTORY, 5, 3));
-        supply.add(new Card("Province", CardType.VICTORY, 8, 6));
-        
-        // Add basic action cards
-        supply.add(new Card("Village", CardType.ACTION, 3, 2));
-        supply.add(new Card("Market", CardType.ACTION, 5, 1));
+        // Add automation cards to supply
+        supply.add(new Card("Method", CardType.AUTOMATION, 2, 1));
+        supply.add(new Card("Module", CardType.AUTOMATION, 5, 3));
+        supply.add(new Card("Framework", CardType.AUTOMATION, 8, 6));
     }
 
     public void addPlayer(Player player) {
@@ -62,7 +58,7 @@ public class Game {
         
         // Buy phase
         player.playMoneyCards();
-        System.out.println("Money available: " + player.getMoney());
+        System.out.println("Cryptocoins available: " + player.getMoney());
         
         // Show hand
         System.out.println("Hand:");
@@ -94,7 +90,7 @@ public class Game {
                     player.buyCard(cardToBuy);
                     System.out.println("Bought: " + cardToBuy.getName());
                 } else {
-                    System.out.println("Not enough money!");
+                    System.out.println("Not enough cryptocoins!");
                 }
             }
         } catch (NumberFormatException e) {
@@ -111,7 +107,7 @@ public class Game {
         
         for (Player player : players) {
             int score = player.calculateScore();
-            System.out.println(player.getName() + ": " + score + " points");
+            System.out.println(player.getName() + ": " + score + " Automation Points");
             if (score > highestScore) {
                 highestScore = score;
                 winner = player;

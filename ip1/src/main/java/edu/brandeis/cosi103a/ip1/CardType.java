@@ -1,7 +1,6 @@
 package edu.brandeis.cosi103a.ip1;
 
 public enum CardType {
-    MONEY,
-    ACTION,
-    VICTORY
+    CRYPTOCURRENCY,
+    AUTOMATION
 }

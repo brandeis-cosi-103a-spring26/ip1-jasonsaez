@@ -12,31 +12,31 @@ public class AppTest {
     
     @Test
     public void testCardCreation() {
-        Card card = new Card("Copper", CardType.MONEY, 0, 1);
-        assertEquals("Copper", card.getName());
-        assertEquals(CardType.MONEY, card.getType());
+        Card card = new Card("Bitcoin", CardType.CRYPTOCURRENCY, 0, 1);
+        assertEquals("Bitcoin", card.getName());
+        assertEquals(CardType.CRYPTOCURRENCY, card.getType());
         assertEquals(0, card.getCost());
         assertEquals(1, card.getValue());
     }
     
     @Test
     public void testCardToString() {
-        Card card = new Card("Silver", CardType.MONEY, 3, 2);
-        String expected = "Silver (MONEY, Cost: 3, Value: 2)";
+        Card card = new Card("Ethereum", CardType.CRYPTOCURRENCY, 3, 2);
+        String expected = "Ethereum (CRYPTOCURRENCY, Cost: 3, Value: 2)";
         assertEquals(expected, card.toString());
     }
     
     @Test
     public void testDeckAddAndDraw() {
         Deck deck = new Deck();
-        Card card = new Card("Copper", CardType.MONEY, 0, 1);
+        Card card = new Card("Bitcoin", CardType.CRYPTOCURRENCY, 0, 1);
         
         deck.addCard(card);
         assertEquals(1, deck.size());
         
         Card drawn = deck.drawCard();
         assertNotNull(drawn);
-        assertEquals("Copper", drawn.getName());
+        assertEquals("Bitcoin", drawn.getName());
         assertEquals(0, deck.size());
     }
     
@@ -45,7 +45,7 @@ public class AppTest {
         Deck deck = new Deck();
         assertTrue(deck.isEmpty());
         
-        deck.addCard(new Card("Estate", CardType.VICTORY, 2, 1));
+        deck.addCard(new Card("Method", CardType.AUTOMATION, 2, 1));
         assertFalse(deck.isEmpty());
     }
     
@@ -86,7 +86,7 @@ public class AppTest {
         Player player = new Player("Test Player");
         player.initializeDeck();
         int score = player.calculateScore();
-        assertEquals(3, score); // 3 estates worth 1 point each
+        assertEquals(3, score); // 3 Method cards worth 1 automation point each
     }
     
     @Test
