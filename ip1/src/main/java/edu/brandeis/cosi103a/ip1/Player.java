@@ -79,30 +79,43 @@ public class Player {
 
     public int calculateScore() {
         int score = 0;
-        // Count victory points from all cards in deck, discard, and hand
-        List<Card> allCards = new ArrayList<>();
         
-        // Temporarily collect all cards
+        // Count victory points from deck (without removing cards)
+        List<Card> deckCards = new ArrayList<>();
         while (!deck.isEmpty()) {
-            allCards.add(deck.drawCard());
+            Card card = deck.drawCard();
+            if (card.getType() == CardType.VICTORY) {
+                score += card.getValue();
+            }
+            deckCards.add(card);
         }
-        while (!discardPile.isEmpty()) {
-            allCards.add(discardPile.drawCard());
-        }
-        allCards.addAll(hand);
         
-        // Calculate score
-        for (Card card : allCards) {
+        // Put deck cards back
+        for (Card card : deckCards) {
+            deck.addCard(card);
+        }
+        
+        // Count victory points from discard pile (without removing cards)
+        List<Card> discardCards = new ArrayList<>();
+        while (!discardPile.isEmpty()) {
+            Card card = discardPile.drawCard();
+            if (card.getType() == CardType.VICTORY) {
+                score += card.getValue();
+            }
+            discardCards.add(card);
+        }
+        
+        // Put discard cards back
+        for (Card card : discardCards) {
+            discardPile.addCard(card);
+        }
+        
+        // Count victory points from hand (without modifying it)
+        for (Card card : hand) {
             if (card.getType() == CardType.VICTORY) {
                 score += card.getValue();
             }
         }
-        
-        // Put cards back
-        for (Card card : allCards) {
-            deck.addCard(card);
-        }
-        hand.clear();
         
         return score;
     }
