@@ -10,14 +10,20 @@ public class Player {
     private List<Card> hand;
     private int money;
     private int actions;
+    private boolean isHuman;
 
-    public Player(String name) {
+    public Player(String name, boolean isHuman) {
         this.name = name;
         this.deck = new Deck();
         this.discardPile = new Deck();
         this.hand = new ArrayList<>();
         this.money = 0;
         this.actions = 0;
+        this.isHuman = isHuman;
+    }
+
+    public Player(String name) {
+        this(name, false); // Default to automated player for backwards compatibility
     }
 
     public void initializeDeck() {
@@ -142,5 +148,9 @@ public class Player {
 
     public void setMoney(int money) {
         this.money = money;
+    }
+
+    public boolean isHuman() {
+        return isHuman;
     }
 }

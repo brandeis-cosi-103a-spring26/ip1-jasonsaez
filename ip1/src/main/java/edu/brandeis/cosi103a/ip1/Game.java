@@ -4,18 +4,25 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Game {
     private List<Player> players;
     private List<Card> supply;
     private int turnCount;
     private Random random;
+    private Scanner scanner;
 
     public Game() {
+        this(null);
+    }
+
+    public Game(Scanner scanner) {
         this.players = new ArrayList<>();
         this.supply = new ArrayList<>();
         this.turnCount = 0;
         this.random = new Random();
+        this.scanner = scanner;
         initializeSupply();
     }
 
@@ -71,7 +78,7 @@ public class Game {
             System.out.println("  " + i + ": " + player.getHand().get(i));
         }
         
-        // Buy a card (automated)
+        // Buy a card (automated or human)
         buyPhase(player);
         
         // Cleanup
@@ -86,7 +93,43 @@ public class Game {
             System.out.println("  " + i + ": " + card);
         }
         
-        // Automated buying strategy: buy the most expensive card the player can afford
+        if (player.isHuman()) {
+            // Human player - get input
+            humanBuyPhase(player);
+        } else {
+            // Automated buying strategy: buy the most expensive card the player can afford
+            automatedBuyPhase(player);
+        }
+    }
+
+    private void humanBuyPhase(Player player) {
+        if (scanner == null) {
+            System.out.println("Error: Scanner not available for human player. Skipping buy.");
+            return;
+        }
+
+        System.out.print("Enter card number to buy (or -1 to skip): ");
+        try {
+            int choice = Integer.parseInt(scanner.nextLine().trim());
+            if (choice == -1) {
+                System.out.println("Skipping buy.");
+            } else if (choice >= 0 && choice < supply.size()) {
+                Card cardToBuy = supply.get(choice);
+                if (player.getMoney() >= cardToBuy.getCost()) {
+                    player.buyCard(cardToBuy);
+                    System.out.println("Bought: " + cardToBuy.getName());
+                } else {
+                    System.out.println("Not enough cryptocoins!");
+                }
+            } else {
+                System.out.println("Invalid choice. Skipping buy.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Skipping buy.");
+        }
+    }
+
+    private void automatedBuyPhase(Player player) {
         Card cardToBuy = null;
         for (Card card : supply) {
             if (player.getMoney() >= card.getCost()) {
