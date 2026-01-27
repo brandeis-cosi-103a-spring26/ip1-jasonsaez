@@ -1,6 +1,27 @@
 # ip1-jasonsaez
 
-## Automation: The Game (ATG)
+This repository contains two Java projects:
+
+## ip1 - Dice Game
+
+A simple dice game where two players take turns rolling a die. Each player can choose to re-roll once per turn.
+
+### Building and Running ip1
+```bash
+cd ip1
+mvn clean package
+java -cp target/ip1-1.0-SNAPSHOT.jar edu.brandeis.cosi103a.ip1.App
+```
+
+### Testing ip1
+```bash
+cd ip1
+mvn test
+```
+
+---
+
+## ip2 - Automation: The Game (ATG)
 
 A deck-building card game prototype implemented in Java for educational purposes.
 
@@ -37,18 +58,18 @@ The supply contains a limited quantity of each card type:
 - **Module** x8 (cost: 5, value: 3 APs)
 - **Framework** x8 (cost: 8, value: 6 APs)
 
-### Building and Running
+### Building and Running ip2
 ```bash
-cd ip1
+cd ip2
 mvn clean package
-java -cp target/ip1-1.0-SNAPSHOT.jar edu.brandeis.cosi103a.ip1.App
+java -cp target/ip2-1.0-SNAPSHOT.jar edu.brandeis.cosi103a.ip2.App
 ```
 
 The game will run automatically with 2 computer players competing against each other.
 
-### Testing
+### Testing ip2
 ```bash
-cd ip1
+cd ip2
 mvn test
 ```
 
