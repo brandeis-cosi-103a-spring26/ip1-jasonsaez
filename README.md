@@ -23,7 +23,7 @@ Automation: The Game is a deck-building card game where players compete to accum
    - Select a card to buy from the supply (human chooses, computer buys most expensive affordable)
    - Cards are removed from the supply when purchased (limited quantities)
    - Discard hand and draw 5 new cards
-3. **Winning**: After 10 turns, the player with the most Automation Points wins
+3. **Winning**: The game ends when all Framework cards have been purchased. The player with the most Automation Points in their deck wins.
 
 ### Card Types
 

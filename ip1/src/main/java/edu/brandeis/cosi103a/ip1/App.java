@@ -47,8 +47,8 @@ public class App
         game.addPlayer(player1);
         game.addPlayer(player2);
         
-        // Play the game for 10 turns
-        game.playGame(10);
+        // Play the game until Framework cards run out (max 100 turns as safety limit)
+        game.playGame(100);
         
         if (scanner != null) {
             scanner.close();

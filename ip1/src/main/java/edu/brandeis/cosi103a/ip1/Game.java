@@ -78,10 +78,27 @@ public class Game {
             System.out.println("\n=== Turn " + turnCount + " ===");
             for (Player player : players) {
                 playTurn(player);
+                
+                // Check if all Framework cards have been purchased (game end condition)
+                if (areAllFrameworksPurchased()) {
+                    System.out.println("\nAll Framework cards have been purchased!");
+                    endGame();
+                    return;
+                }
             }
         }
         
         endGame();
+    }
+    
+    private boolean areAllFrameworksPurchased() {
+        // Check if there are any Framework cards left in the supply
+        for (Card card : supply) {
+            if (card.getName().equals("Framework")) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private void playTurn(Player player) {
