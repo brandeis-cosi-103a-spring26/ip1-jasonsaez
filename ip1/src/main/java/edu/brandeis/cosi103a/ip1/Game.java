@@ -96,9 +96,7 @@ public class Game {
         
         // Show hand
         System.out.println("Hand:");
-        for (int i = 0; i < player.getHand().size(); i++) {
-            System.out.println("  " + i + ": " + player.getHand().get(i));
-        }
+        displayHand(player);
         
         // Buy a card (automated or human)
         buyPhase(player);
@@ -106,6 +104,28 @@ public class Game {
         // Cleanup
         player.discardHand();
         player.drawCards(5);
+    }
+    
+    private void displayHand(Player player) {
+        // Count each card type in hand
+        java.util.Map<String, Integer> cardCounts = new java.util.LinkedHashMap<>();
+        java.util.Map<String, Card> cardTypes = new java.util.LinkedHashMap<>();
+        
+        for (Card card : player.getHand()) {
+            String key = card.getName();
+            cardCounts.put(key, cardCounts.getOrDefault(key, 0) + 1);
+            if (!cardTypes.containsKey(key)) {
+                cardTypes.put(key, card);
+            }
+        }
+        
+        for (String cardName : cardCounts.keySet()) {
+            Card card = cardTypes.get(cardName);
+            int count = cardCounts.get(cardName);
+            System.out.println("  " + card.getName() + " x" + count + 
+                             " (" + card.getType() + ", Cost: " + card.getCost() + 
+                             ", Value: " + card.getValue() + ")");
+        }
     }
 
     private void buyPhase(Player player) {
