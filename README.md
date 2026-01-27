@@ -21,10 +21,13 @@ Automation: The Game is a deck-building card game where players compete to accum
    - Draw 5 cards
    - Play all cryptocurrency cards to generate purchasing power
    - Select a card to buy from the supply (human chooses, computer buys most expensive affordable)
+   - Cards are removed from the supply when purchased (limited quantities)
    - Discard hand and draw 5 new cards
 3. **Winning**: After 10 turns, the player with the most Automation Points wins
 
 ### Card Types
+
+The supply contains a limited quantity of each card type:
 
 **Cryptocurrency Cards** (provide buying power):
 - **Bitcoin** x60 (cost: 0, value: 1 cryptocoin)
