@@ -142,6 +142,42 @@ public class Player {
         
         return score;
     }
+    
+    public List<Card> getAllCards() {
+        List<Card> allCards = new ArrayList<>();
+        
+        // Get all cards from deck
+        List<Card> deckCards = new ArrayList<>();
+        while (!deck.isEmpty()) {
+            Card card = deck.drawCard();
+            deckCards.add(card);
+            allCards.add(card);
+        }
+        // Put deck cards back
+        for (Card card : deckCards) {
+            deck.addCard(card);
+        }
+        
+        // Get all cards from discard pile
+        List<Card> discardCards = new ArrayList<>();
+        while (!discardPile.isEmpty()) {
+            Card card = discardPile.drawCard();
+            discardCards.add(card);
+            allCards.add(card);
+        }
+        // Put discard cards back
+        for (Card card : discardCards) {
+            discardPile.addCard(card);
+        }
+        
+        // Add cards from hand
+        allCards.addAll(hand);
+        
+        // Add played cards
+        allCards.addAll(playedCards);
+        
+        return allCards;
+    }
 
     public String getName() {
         return name;

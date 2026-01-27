@@ -265,7 +265,24 @@ public class Game {
         
         for (Player player : players) {
             int score = player.calculateScore();
-            System.out.println(player.getName() + ": " + score + " Automation Points");
+            System.out.println("\n" + player.getName() + ": " + score + " Automation Points");
+            
+            // List all cards in player's deck
+            List<Card> allCards = player.getAllCards();
+            java.util.Map<String, Integer> cardCounts = new java.util.LinkedHashMap<>();
+            
+            // Count each card type
+            for (Card card : allCards) {
+                String key = card.getName();
+                cardCounts.put(key, cardCounts.getOrDefault(key, 0) + 1);
+            }
+            
+            System.out.println("Cards in deck:");
+            for (String cardName : cardCounts.keySet()) {
+                int count = cardCounts.get(cardName);
+                System.out.println("  " + cardName + " x" + count);
+            }
+            
             if (score > highestScore) {
                 highestScore = score;
                 winner = player;
