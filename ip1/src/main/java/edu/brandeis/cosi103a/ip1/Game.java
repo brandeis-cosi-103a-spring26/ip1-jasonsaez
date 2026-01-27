@@ -90,20 +90,23 @@ public class Game {
         // Action phase
         player.setActions(1);
         
-        // Buy phase
-        player.playMoneyCards();
-        System.out.println("Cryptocoins available: " + player.getMoney());
-        
         // Show hand
         System.out.println("Hand:");
         displayHand(player);
         
+        // Buy phase - play cryptocurrency cards and buy up to 1 card
+        System.out.println("\n--- Buy Phase ---");
+        player.playMoneyCards();
+        System.out.println("Cryptocoins available: " + player.getMoney());
+        
         // Buy a card (automated or human)
         buyPhase(player);
         
-        // Cleanup
+        // Cleanup phase - discard hand and played cards, then draw new hand
+        System.out.println("\n--- Cleanup Phase ---");
         player.discardHand();
         player.drawCards(5);
+        System.out.println("Drew 5 cards for next turn");
     }
     
     private void displayHand(Player player) {

@@ -8,6 +8,7 @@ public class Player {
     private Deck deck;
     private Deck discardPile;
     private List<Card> hand;
+    private List<Card> playedCards;
     private int money;
     private int actions;
     private boolean isHuman;
@@ -17,6 +18,7 @@ public class Player {
         this.deck = new Deck();
         this.discardPile = new Deck();
         this.hand = new ArrayList<>();
+        this.playedCards = new ArrayList<>();
         this.money = 0;
         this.actions = 0;
         this.isHuman = isHuman;
@@ -61,18 +63,33 @@ public class Player {
     }
 
     public void discardHand() {
+        // Discard all cards in hand
         for (Card card : hand) {
             discardPile.addCard(card);
         }
         hand.clear();
+        
+        // Discard all played cards
+        for (Card card : playedCards) {
+            discardPile.addCard(card);
+        }
+        playedCards.clear();
     }
 
     public void playMoneyCards() {
         money = 0;
+        // Move cryptocurrency cards from hand to played area and count their value
+        List<Card> cardsToPlay = new ArrayList<>();
         for (Card card : hand) {
             if (card.getType() == CardType.CRYPTOCURRENCY) {
+                cardsToPlay.add(card);
                 money += card.getValue();
             }
+        }
+        // Remove played cards from hand and add to played area
+        for (Card card : cardsToPlay) {
+            hand.remove(card);
+            playedCards.add(card);
         }
     }
 
