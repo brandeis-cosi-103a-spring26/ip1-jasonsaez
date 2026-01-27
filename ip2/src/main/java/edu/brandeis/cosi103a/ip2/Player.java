@@ -140,6 +140,13 @@ public class Player {
             }
         }
         
+        // Count automation points from played cards (without modifying it)
+        for (Card card : playedCards) {
+            if (card.getType() == CardType.AUTOMATION) {
+                score += card.getValue();
+            }
+        }
+        
         return score;
     }
     
@@ -205,5 +212,17 @@ public class Player {
 
     public boolean isHuman() {
         return isHuman;
+    }
+    
+    public Deck getDeck() {
+        return deck;
+    }
+    
+    public Deck getDiscardPile() {
+        return discardPile;
+    }
+    
+    public List<Card> getPlayedCards() {
+        return playedCards;
     }
 }
